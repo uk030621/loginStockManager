@@ -1,9 +1,16 @@
 // app/api/logout/route.js
 import { NextResponse } from 'next/server';
 
+export async function POST(req) {
+  const response = NextResponse.json({ message: 'Logged out successfully' });
 
-export async function POST() {
-  const response = NextResponse.json({ message: 'Logged out' }, { status: 200 });
-  response.cookies.set('token', '', { httpOnly: true, path: '/', maxAge: -1 });
+  // Clear the token cookie by setting it to expire immediately
+  response.cookies.set('token', '', {
+    httpOnly: true,
+    secure: true,
+    path: '/',
+    maxAge: 0, // Expires immediately
+  });
+
   return response;
 }

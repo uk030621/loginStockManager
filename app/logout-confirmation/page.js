@@ -1,5 +1,4 @@
-
-
+//app/logout-confirmation
 'use client'; // Necessary for client-side hooks like useRouter
 
 import { useRouter } from 'next/navigation'; // Correct import for Next.js 13+ client-side navigation
@@ -8,7 +7,17 @@ import { useState } from 'react'; // Import useState hook from React
 const LogoutConfirmation = () => {
   const router = useRouter(); // Initialize router before using it
   const [showInstructions, setShowInstructions] = useState(false); 
-  const handleGoToLogin = () => router.push('/login');
+
+  const handleGoToLogin = async () => {
+    // Call the logout API to clear the JWT cookie
+    await fetch('/api/logout', {
+      method: 'POST',
+    });
+
+    // Redirect to login page after successful logout
+    router.push('/login');
+  };
+
   const handleShowInstructions = () => setShowInstructions(true);
 
   return (
@@ -93,4 +102,3 @@ const LogoutConfirmation = () => {
 };
 
 export default LogoutConfirmation;
-

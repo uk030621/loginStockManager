@@ -1,3 +1,4 @@
+//app/api/login/route.js
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -51,7 +52,7 @@ export async function POST(req) {
 
   // Create the response and set the JWT token as a cookie
   const response = NextResponse.json({ message: 'Login successful' });
-  response.cookies.set('token', token, { httpOnly: true, secure: true, path: '/' });
+  response.cookies.set('token', token, { httpOnly: true, secure: true, path: '/', maxAge:3600, });
 
   // Log that the login was successful
   console.log('Login successful, token set in cookies for user:', email);

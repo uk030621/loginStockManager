@@ -1,3 +1,4 @@
+//app/ukstock/page.js
 "use client";
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -306,6 +307,7 @@ const fetchFtseValue = async () => {
                 }}>Cancel</button>}
                 <button className="input-stock-button" onClick={refreshAllData}>Refresh</button>
                 <Link className='logout-confirm-link' href="/logout-confirmation">Logout</Link>
+                {/*<Link className='logout-confirm-link' href="api/logout">Logout</Link>*/}
             </div>
 
             {/* FTSE Index Display */}

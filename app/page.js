@@ -1,3 +1,4 @@
+//app/page.js
 'use client'; // Necessary for client-side rendering
 
 import { useRouter } from 'next/navigation'; // Correct import
