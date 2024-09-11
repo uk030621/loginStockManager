@@ -235,6 +235,7 @@ const fetchFtseValue = async () => {
 
     return (
         <div style={{ textAlign: 'center', marginTop: '15px' }}>
+            
             {/* Title and Baseline Value */}
             <h1 className='heading'>
                 UK
@@ -277,7 +278,7 @@ const fetchFtseValue = async () => {
             <Link className='stock-symbol-search' href = "/symbolsearch">Symbol Search</Link>
             <Link className='currency-link' href="/currency">Currency Converter</Link>
             <Link className='usstock-link' href="/uscurrency">US Portfolio</Link>
-            <Link className='logout-confirm-link' href="/logout-confirmation">Logout</Link>
+            
             {/* Add or Update Stock Form */}
             <div>
                 <input className='inputs'
@@ -304,6 +305,7 @@ const fetchFtseValue = async () => {
                     setNewStock({ symbol: '', sharesHeld: '' });
                 }}>Cancel</button>}
                 <button className="input-stock-button" onClick={refreshAllData}>Refresh</button>
+                <Link className='logout-confirm-link' href="/logout-confirmation">Logout</Link>
             </div>
 
             {/* FTSE Index Display */}

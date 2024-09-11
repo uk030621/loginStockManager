@@ -284,7 +284,7 @@ export default function Home() {
             <Link className='stock-symbol-search' href = "/symbolsearch">Symbol Search</Link>
             <Link className='currency-link' href="/currency">Currency Converter</Link>
             <Link className='usstock-link' href="/">UK Portfolio</Link>
-            <Link className='logout-confirm-link' href="/logout-confirmation">Logout</Link>
+            
             {/* Add or Update Stock Form */}
             <div>
                 <input className='inputs'
@@ -311,6 +311,7 @@ export default function Home() {
                     setNewStock({ symbol: '', sharesHeld: '' });
                 }}>Cancel</button>}
                 <button className="input-stock-button" onClick={refreshAllData}>Refresh</button>
+                <Link className='logout-confirm-link' href="/logout-confirmation">Logout</Link>
             </div>
 
             <div>

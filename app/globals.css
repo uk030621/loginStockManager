@@ -45,8 +45,8 @@ body{
 
 .logout-confirm-link{
   text-decoration: none;
-  font-size: small;
-  margin-left: 20px;
+  font-size: medium;
+  margin-left: 10px;
   color:grey
 }
 
