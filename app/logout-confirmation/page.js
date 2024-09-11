@@ -9,13 +9,20 @@ const LogoutConfirmation = () => {
   const [showInstructions, setShowInstructions] = useState(false); 
 
   const handleGoToLogin = async () => {
-    // Call the logout API to clear the JWT cookie
-    await fetch('/api/logout', {
-      method: 'POST',
-    });
+    try {
+        const response = await fetch('/api/logout', {
+            method: 'POST',
+        });
 
-    // Redirect to login page after successful logout
-    router.push('/login');
+        if (response.ok) {
+            // Redirect to login page after successful logout
+            router.push('/login');
+        } else {
+            console.error("Failed to logout:", response.statusText);
+        }
+    } catch (error) {
+        console.error("Error logging out:", error);
+    }
   };
 
   const handleShowInstructions = () => setShowInstructions(true);

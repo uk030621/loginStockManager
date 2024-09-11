@@ -12,6 +12,7 @@ export function middleware(req) {
   return NextResponse.next();
 }
 
+// Apply the middleware to protected routes
 export const config = {
-  matcher: ['/'], // Protect the home page
+  matcher: ['/ukstock/:path*', '/usstock/:path*'], // Add paths for protected pages
 };
