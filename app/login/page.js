@@ -27,7 +27,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '100%', boxSizing: 'border-box', border:'none'}}>
+    <div style={{textAlign:'center', padding: '20px', maxWidth: '100%', boxSizing: 'border-box', border:'none'}}>
       <div
         style={{
           backgroundColor: 'black',
@@ -46,7 +46,7 @@ export default function LoginPage() {
                         height={150} 
                         style={{ marginLeft: '5px' }}  
                     />
-        <h1 style={{ textAlign: 'center', marginBottom: '15px', color:'white' }}>Stock Portfolio</h1>           
+        <h1 style={{ textAlign: 'center', marginBottom: '15px', color:'#c8f3c8' }}>Stock Portfolio</h1>           
         <h1 style={{ textAlign: 'center', marginBottom: '15px', color:'white' }}>Login</h1>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <form onSubmit={handleSubmit} style={{ width: '100%' }}>
@@ -56,7 +56,7 @@ export default function LoginPage() {
                   width: '100%',
                   border:'none',
                   padding: '10px',
-                  backgroundColor: 'lightgreen',
+                  backgroundColor: '#c8f3c8',
                   borderRadius: '5px',
                   fontSize:'17px',
                   
@@ -76,7 +76,7 @@ export default function LoginPage() {
                   width: '100%',
                   border:'none',
                   padding: '10px',
-                  backgroundColor: 'lightgreen',
+                  backgroundColor: '#c8f3c8',
                   borderRadius: '5px',
                   fontSize:'17px',
                   color:'black',

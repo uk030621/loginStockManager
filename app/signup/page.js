@@ -37,7 +37,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '100%', boxSizing: 'border-box'}}>
+    <div style={{textAlign:'center', padding: '20px', maxWidth: '100%', boxSizing: 'border-box'}}>
       <div
         style={{
           backgroundColor: 'black',
@@ -54,9 +54,9 @@ export default function SignupPage() {
                         alt="Portfolio Image" 
                         width={150}  
                         height={150} 
-                        style={{ marginLeft: '5px', borderRadius:'50px' }}  
+                        style={{marginLeft: '5px', borderRadius:'50px' }}  
                     />
-        <h1 style={{ textAlign: 'center', marginBottom: '15px', color:'white' }}>Stock Portfolio</h1>             
+        <h1 style={{ textAlign: 'center', marginBottom: '15px', color:'#c8f3c8' }}>Stock Portfolio</h1>             
         <h1 style={{ textAlign: 'center', marginBottom: '15px', color:'white' }}>Register</h1>
         <form onSubmit={handleSignup} style={{ width: '100%' }}>
           {/*<label style={{ display: 'block', marginBottom: '5px', color:'white' }}>Email:</label>*/}
@@ -65,7 +65,7 @@ export default function SignupPage() {
               style={{
                 width: '100%',
                 padding: '10px',
-                backgroundColor: 'lightgreen',
+                backgroundColor: '#c8f3c8',
                 border:'none',
                 borderRadius: '5px',
                 fontSize:'17px',
@@ -87,7 +87,7 @@ export default function SignupPage() {
               style={{
                 width: '100%',
                 padding: '10px',
-                backgroundColor: 'lightgreen',
+                backgroundColor: '#c8f3c8',
                 border:'none',
                 borderRadius: '5px',
                 color:'black',
