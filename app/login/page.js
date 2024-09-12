@@ -5,6 +5,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export default function LoginPage() {
   const [form, setForm] = useState({ email: '', password: '' });
@@ -38,6 +39,13 @@ export default function LoginPage() {
           boxSizing: 'border-box',
         }}
       >
+        <Image className='login-pic'
+                        src="/bear.jpg" 
+                        alt="Portfolio Image" 
+                        width={150}  
+                        height={150} 
+                        style={{ marginLeft: '5px' }}  
+                    />
         <h1 style={{ textAlign: 'center', marginBottom: '15px', color:'white' }}>Login</h1>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <form onSubmit={handleSubmit} style={{ width: '100%' }}>
