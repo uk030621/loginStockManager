@@ -3,6 +3,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function SignupPage() {
   const [email, setEmail] = useState('');
@@ -48,6 +49,13 @@ export default function SignupPage() {
           boxSizing: 'border-box',
         }}
       >
+        <Image className='login-pic'
+                        src="/bull_bear.jpg" 
+                        alt="Portfolio Image" 
+                        width={150}  
+                        height={150} 
+                        style={{ marginLeft: '5px', borderRadius:'50px' }}  
+                    />
         <h1 style={{ textAlign: 'center', marginBottom: '15px', color:'white' }}>Register</h1>
         <form onSubmit={handleSignup} style={{ width: '100%' }}>
           {/*<label style={{ display: 'block', marginBottom: '5px', color:'white' }}>Email:</label>*/}
