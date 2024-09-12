@@ -56,6 +56,7 @@ export default function SignupPage() {
                         height={150} 
                         style={{ marginLeft: '5px', borderRadius:'50px' }}  
                     />
+        <h1 style={{ textAlign: 'center', marginBottom: '15px', color:'white' }}>Stock Portfolio</h1>             
         <h1 style={{ textAlign: 'center', marginBottom: '15px', color:'white' }}>Register</h1>
         <form onSubmit={handleSignup} style={{ width: '100%' }}>
           {/*<label style={{ display: 'block', marginBottom: '5px', color:'white' }}>Email:</label>*/}

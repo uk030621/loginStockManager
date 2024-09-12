@@ -46,6 +46,7 @@ export default function LoginPage() {
                         height={150} 
                         style={{ marginLeft: '5px' }}  
                     />
+        <h1 style={{ textAlign: 'center', marginBottom: '15px', color:'white' }}>Stock Portfolio</h1>           
         <h1 style={{ textAlign: 'center', marginBottom: '15px', color:'white' }}>Login</h1>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <form onSubmit={handleSubmit} style={{ width: '100%' }}>
