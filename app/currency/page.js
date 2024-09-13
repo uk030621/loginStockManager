@@ -17,11 +17,10 @@ export default function CurrencyConverter() {
     document.body.classList.add(styles.bodyCustomStyle);
 
     return () => {
-    // Clean up the class when the component is unmounted
-    document.body.classList.remove(styles.bodyCustomStyle);
+      // Clean up the class when the component is unmounted
+      document.body.classList.remove(styles.bodyCustomStyle);
     };
   }, []);  // <-- Empty dependency array so it runs only on mount/unmount
-
 
   const handleConvert = async (e) => {
     e.preventDefault();
@@ -40,17 +39,17 @@ export default function CurrencyConverter() {
 
   return (
     <div style={{ textAlign: 'center', marginTop: '50px'}}>
-      <Link className="home-link" href = "/">Home page</Link>
-      
+      <Link className="home-link" href="/ukstock">Home page</Link>
+
       <h1 className='currency-converter-heading'>convert
         <span>
-        <Image className='uk-pic'
-                    src="/moneyexchange.jpg" 
-                    alt="Money Exchange Image" 
-                    width={100}  // Adjust the width
-                    height={100} // Adjust the height
-                    style={{ marginLeft: '5px' }}  // Add margin for spacing
-                />
+          <Image className='uk-pic'
+            src="/currency.jpg" 
+            alt="Money Exchange Image" 
+            width={100}  // Adjust the width
+            height={100} // Adjust the height
+            style={{ marginLeft: '5px' }}  // Add margin for spacing
+          />
         </span> Currency</h1>
 
       <form onSubmit={handleConvert}>
@@ -68,7 +67,7 @@ export default function CurrencyConverter() {
           <option value="USD">USD</option>
           <option value="EUR">EUR</option>
           <option value="GBP">GBP</option>
-          {/* Add more currencies if needed */}
+          <option value="JPY">JPY</option> {/* Added JPY here */}
         </select>
         <select className='selector'
           value={toCurrency} 
@@ -77,7 +76,7 @@ export default function CurrencyConverter() {
           <option value="EUR">EUR</option>
           <option value="USD">USD</option>
           <option value="GBP">GBP</option>
-          {/* Add more currencies if needed */}
+          <option value="JPY">JPY</option> {/* Added JPY here */}
         </select>
         <button className='convert-button' type="submit">Convert</button>
       </form>
@@ -86,8 +85,8 @@ export default function CurrencyConverter() {
         <h2 className='result'>{amount} {fromCurrency} = {result} {toCurrency}</h2>
       )}
 
-<Link className="home-link" href = "/">Home page</Link>
+      <Link className="home-link" href="/ukstock">Home page</Link>
     </div>
-    
   );
 }
+
