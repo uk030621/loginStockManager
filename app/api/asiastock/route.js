@@ -5,7 +5,7 @@ import clientPromise from '../../../lib/mongodbuk';
 const MONGODB_DB_NAME = 'stock_portfolio';
 
 // This route.js accesses the COLLECTION 'usstocks' from the MongoDB database.
-const COLLECTION_USSTOCK_NAME = 'LWJ_US_stocks'; // Change this to connenct with appropriate Stock MongoDB collection.
+const COLLECTION_USSTOCK_NAME = 'LWJ_asia_stocks'; // Change this to connenct with appropriate Stock MongoDB collection.
 
 
 // Helper function to connect to the database
@@ -23,16 +23,16 @@ export async function GET(req) {
         const db = await connectToDatabase();
 
         if (symbol) {
-            // Special handling for ^DJI index (Dow Jones Industrial Average)
-            if (symbol === '^DJI') {
-                const response = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/%5EDJI`);
+            // Special handling for ^N225 index (Dow Jones Industrial Average)
+            if (symbol === '^N225') {
+                const response = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/%5EN225`);
                 const data = await response.json();
-                const djiValue = data.chart.result[0].meta.regularMarketPrice;
+                const Nikkei = data.chart.result[0].meta.regularMarketPrice;
 
-                if (djiValue !== undefined) {
-                    return NextResponse.json({ symbol: '^DJI', pricePerShare: djiValue });
+                if (Nikkei !== undefined) {
+                    return NextResponse.json({ symbol: '^N225', pricePerShare: Nikkei });
                 } else {
-                    return NextResponse.json({ error: 'Failed to fetch DJI index value' }, { status: 500 });
+                    return NextResponse.json({ error: 'Failed to fetch N225 index value' }, { status: 500 });
                 }
             }
             

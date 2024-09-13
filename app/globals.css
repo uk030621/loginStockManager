@@ -253,6 +253,18 @@ button:hover{
   font-size: 0.9rem;
 }
 
+.asiastock-link{
+  text-decoration: none;
+  font-size: small;
+  color: grey;
+  margin-left: 20px;
+}
+
+.asiastock-link:hover{
+  color: black;
+  font-weight: bolder;
+}
+
 .usstock-link{
   text-decoration: none;
   font-size: small;
@@ -273,6 +285,11 @@ button:hover{
 .ukstock-link:hover{
   color: black;
   font-weight: bolder;
+}
+
+
+a.stock-symbol-search{
+  margin-bottom: 20px;
 }
 
 .stock-symbol-search{

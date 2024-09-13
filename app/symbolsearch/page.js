@@ -119,7 +119,7 @@ export default function StockSearchPage() {
             </span>
             UK
           </Link>
-          <Link className='stock-symbol-search' href="/uscurrency">
+          <Link className='stock-symbol-search' href="/usstock">
             <span>
               <Image
                 className='uk-pic'
@@ -132,6 +132,28 @@ export default function StockSearchPage() {
             </span>
             US
           </Link>
+          <Link className='stock-symbol-search' href="/asiastock">
+            <span>
+              <Image
+                className='uk-pic'
+                src="/Japan.jpg"
+                alt="Portfolio Image"
+                width={50} // Adjust the width
+                height={50} // Adjust the height
+                style={{ marginLeft: '5px' }} // Add margin for spacing
+              />
+            </span>
+            Japan
+          </Link>
+
+
+
+
+
+
+
+
+
         </div>
       
     </div>

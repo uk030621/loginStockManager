@@ -69,7 +69,7 @@ export default function Home() {
     const fetchDjiValue = async () => {
         try {
             console.log("Fetching DJ index value...");  // For debugging
-            const response = await fetch('/api/usstock?symbol=DJI^');  // Try changing to 'DJI'
+            const response = await fetch('/api/usstock?symbol=^DJI');  // Try changing to 'DJI'
             if (!response.ok) {
                 throw new Error('Failed to fetch DJ Index value');
             }
@@ -297,8 +297,13 @@ export default function Home() {
             {/*<a className='hyperlink1' href="https://uk.finance.yahoo.com/lookup" target="_blank" rel="noopener noreferrer" >Link - <span className='symbol-lookup'>symbol lookup</span> </a>*/}
             <Link className='stock-symbol-search' href = "/symbolsearch">Symbol Search</Link>
             <Link className='currency-link' href="/currency">Currency Converter</Link>
-            <Link className='usstock-link' href="/">UK Portfolio</Link>
-            
+
+            <div style={{marginTop:'10px'}}>
+            <Link className='usstock-link' style={{margin:'top', marginRight:'10px'}} href="/">UK</Link>
+            <Link className='usstock-link' style={{margin:'top', marginRight:'10px'}} href="/asiastock">Asia</Link>
+            <Link className='usstock-link' style={{margin:'top', marginRight:'10px'}} href="/">EU</Link>
+            </div>
+
             {/* Add or Update Stock Form */}
             <div>
                 <input className='inputs'
@@ -332,8 +337,8 @@ export default function Home() {
                 <h2 className="ftse-index" style={{ marginBottom: '20px', color:'grey', fontSize:'0.9rem' }}>
                     DJ Index: {typeof DjiValue === 'number' ? DjiValue.toLocaleString('en-GB') : 'Loading...'}
                 </h2>
-
             </div>
+
 
             
 
@@ -366,11 +371,11 @@ export default function Home() {
                                     className={`price-cell ${getPriceChangeColor(stock.symbol, parseFloat(stock.pricePerShare.replace(/,/g, '')))}`}
                                     style={{ border: '1px solid black', padding: '8px' }}
                                 >
-                                    £{stock.pricePerShare}
+                                    {stock.pricePerShare}
                                 </td>
 
                                 <td style={{ border: '1px solid black', padding: '8px' }}>{stock.sharesHeld}</td>
-                                <td style={{ border: '1px solid black', padding: '8px' }}>£{stock.totalValue}</td>
+                                <td style={{ border: '1px solid black', padding: '8px' }}>{stock.totalValue}</td>
                                 <td style={{ border: '1px solid black', padding: '8px' }}>
                                     <button className="edit-button" onClick={() => startEditing(stock)}>Edit</button>
                                     <button className="delete-button" onClick={() => deleteStock(stock.symbol)}>Delete</button>

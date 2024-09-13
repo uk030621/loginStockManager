@@ -1,4 +1,3 @@
-//app/ukstock/page.js
 "use client";
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -9,7 +8,7 @@ export default function Home() {
     const [stocks, setStocks] = useState([]);
     const [previousPrices, setPreviousPrices] = useState({}); // Store previous prices
     const [totalPortfolioValue, setTotalPortfolioValue] = useState(0);
-    const [ftseValue, setFtseValue] = useState(null); // Initialize ftseValue using useState
+    const [Nikkei, setNikkei] = useState(null); // Initialize Nikkei using useState
     const [newStock, setNewStock] = useState({ symbol: '', sharesHeld: '' });
     const [isEditing, setIsEditing] = useState(false);
     const [editingSymbol, setEditingSymbol] = useState('');
@@ -33,17 +32,18 @@ export default function Home() {
     }, []);  // <-- Empty dependency array so it runs only on mount/unmount
 
 
+
     useEffect(() => {
         fetchData();
         fetchBaselineValue();
-        fetchFtseValue(); // Fetch FTSE value
+        fetchNikkei(); // Fetch FTSE value
     }, []);
 
 
     useEffect(() => {
         // Fetch the initial stock data on component mount
         fetchData();
-        fetchFtseValue(); 
+        fetchNikkei(); 
     
         // Set an interval to fetch data every 60 seconds
         const intervalId = setInterval(fetchData, 60000); 
@@ -53,38 +53,45 @@ export default function Home() {
 
     
     useEffect(() => {
-        fetchFtseValue();  // Initial fetch
+        fetchNikkei();  // Initial fetch
     
-        const intervalId = setInterval(fetchFtseValue, 60000);  // Set interval to fetch FTSE every 60 seconds
+        const intervalId = setInterval(fetchNikkei, 60000);  // Set interval to fetch FTSE every 60 seconds
         return () => clearInterval(intervalId);  // Cleanup the interval on component unmount
     }, []);
   
     
+    useEffect(() => {
+        console.log("Nikkei state:", Nikkei);  // Log Nikkei state on every change
+    }, [Nikkei]);
+
 
     // Function to fetch FTSE index value
-    const fetchFtseValue = async () => {
+    const fetchNikkei = async () => {
         try {
-            console.log("Fetching FTSE value...");  // For debugging
-            const response = await fetch('/api/ukstock?symbol=FTSE^');
+            console.log("Fetching DJ index value...");  // For debugging
+            const response = await fetch('/api/asiastock?symbol=^N225');  // Try changing to 'DJI'
             if (!response.ok) {
-                throw new Error('Failed to fetch FTSE value');
+                throw new Error('Failed to fetch DJ Index value');
             }
             const data = await response.json();
-            console.log("FTSE data:", data);  // For debugging
-
+            console.log("DJ Index data:", data);  // For debugging
+    
             if (data.pricePerShare) {
-                setFtseValue(data.pricePerShare);
+                setNikkei(data.pricePerShare);
+            } else {
+                console.error('Price per share not found in data', data);
             }
         } catch (error) {
-            console.error('Error fetching FTSE index:', error);
+            console.error('Error fetching DJ index value:', error);
         }
     };
+    
 
 
     // Fetch baseline value
     const fetchBaselineValue = async () => {
         try {
-            const response = await fetch('/api/ukbaseline');
+            const response = await fetch('/api/asiabaseline');
             const data = await response.json();
             setBaselinePortfolioValue(data.baselinePortfolioValue);
         } catch (error) {
@@ -94,7 +101,7 @@ export default function Home() {
 
     const updateBaselineValue = async () => {
         try {
-            const response = await fetch('/api/ukbaseline', {
+            const response = await fetch('/api/asiabaseline', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ baselinePortfolioValue: parseFloat(newBaselineValue) })
@@ -124,12 +131,12 @@ export default function Home() {
     const fetchData = async () => {
         setIsLoading(true);
         try {
-            const response = await fetch('/api/ukstock');
+            const response = await fetch('/api/asiastock');
             const data = await response.json();
 
             const updatedStocks = await Promise.all(
                 data.map(async (stock) => {
-                    const priceResponse = await fetch(`/api/ukstock?symbol=${stock.symbol}`);
+                    const priceResponse = await fetch(`/api/asiastock?symbol=${stock.symbol}`);
                     const priceData = await priceResponse.json();
 
                     const pricePerShare = parseFloat(priceData.pricePerShare);
@@ -176,7 +183,7 @@ export default function Home() {
     const addOrUpdateStock = async () => {
         try {
             const method = isEditing ? 'PUT' : 'POST';
-            const endpoint = isEditing ? `/api/ukstock?symbol=${editingSymbol}` : '/api/ukstock';
+            const endpoint = isEditing ? `/api/asiastock?symbol=${editingSymbol}` : '/api/asiastock';
 
             const response = await fetch(endpoint, {
                 method: method,
@@ -199,7 +206,7 @@ export default function Home() {
 
     const deleteStock = async (symbol) => {
         try {
-            const response = await fetch('/api/ukstock', {
+            const response = await fetch('/api/asiastock', {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ symbol })
@@ -243,20 +250,18 @@ export default function Home() {
 
     const refreshAllData = () => {
         fetchData();      // Fetch stock data
-        fetchFtseValue(); // Fetch FTSE index value
+        fetchNikkei(); // Fetch FTSE index value
     };
 
-
-
+    
     return (
         <div style={{ textAlign: 'center', marginTop: '15px' }}>
-            
             {/* Title and Baseline Value */}
             <h1 className='heading'>
-                UK
+               Japan
                 <span>
                     <Image className='uk-pic'
-                        src="/UKFlag.jpg" 
+                        src="/Japan.jpg" 
                         alt="Portfolio Image" 
                         width={50}  
                         height={50} 
@@ -265,8 +270,8 @@ export default function Home() {
                 </span> 
                 Stock Portfolio  
             </h1>
-            <h2 className="sub-heading" style={{ marginTop: '10px' }}>Indicative Value: <span className='total-value'>£{totalPortfolioValue.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span></h2>
-            <h4 className='baseline-value'>Baseline: £{baselinePortfolioValue.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</h4>
+            <h2 className="sub-heading" style={{ marginTop: '10px' }}>Indicative Value: <span className='total-value'>&yen;{totalPortfolioValue.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span></h2>
+            <h4 className='baseline-value'>Baseline: &yen;{baselinePortfolioValue.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</h4>
             
             <input
                 className="inputs"
@@ -280,7 +285,7 @@ export default function Home() {
             <p style={{fontSize:'0.8rem', marginBottom:'2px', color:'grey'}}>Change from baseline:</p>
                 <h4 className="statistics">
                     <span className={getColorClass(deviation.absoluteDeviation)} style={{ marginRight: '20px' }}>
-                        £{deviation.absoluteDeviation.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                        &yen;{deviation.absoluteDeviation.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                     </span>
 
                     <span className={getColorClass(deviation.percentageChange)}>
@@ -292,13 +297,13 @@ export default function Home() {
             {/*<a className='hyperlink1' href="https://uk.finance.yahoo.com/lookup" target="_blank" rel="noopener noreferrer" >Link - <span className='symbol-lookup'>symbol lookup</span> </a>*/}
             <Link className='stock-symbol-search' href = "/symbolsearch">Symbol Search</Link>
             <Link className='currency-link' href="/currency">Currency Converter</Link>
-            
+
             <div style={{marginTop:'10px'}}>
+            <Link className='usstock-link' style={{margin:'top', marginRight:'10px'}} href="/">UK</Link>
             <Link className='usstock-link' style={{margin:'top', marginRight:'10px'}} href="/usstock">US</Link>
-            <Link className='usstock-link' style={{margin:'top', marginRight:'10px'}} href="/asiastock">Asia</Link>
             <Link className='usstock-link' style={{margin:'top', marginRight:'10px'}} href="/">EU</Link>
             </div>
-
+            
             {/* Add or Update Stock Form */}
             <div>
                 <input className='inputs'
@@ -326,15 +331,23 @@ export default function Home() {
                 }}>Cancel</button>}
                 <button className="input-stock-button" onClick={refreshAllData}>Refresh</button>
                 <Link className='logout-confirm-link' href="/logout-confirmation">Logout</Link>
-                {/*<Link className='logout-confirm-link' href="api/logout">Logout</Link>*/}
             </div>
 
+            <div>
+                <h2 className="ftse-index" style={{ marginBottom: '20px', color:'grey', fontSize:'0.9rem' }}>
+                    Nikkei 225 Index: {typeof Nikkei === 'number' ? Nikkei.toLocaleString('en-GB') : 'Loading...'}
+                </h2>
+
+            </div>
+
+            
+
             {/* FTSE Index Display */}
-        {ftseValue !== null && (
+        {/*{Nikkei !== null && (
             <h2 className="ftse-index" style={{ marginBottom: '20px', color:'grey', fontSize:'0.9rem' }}>
-                FTSE 100 Index: <span>{ftseValue.toLocaleString('en-GB')}</span>
+                FTSE 100 Index: <span>{Nikkei.toLocaleString('en-GB')}</span>
             </h2>
-        )}
+        )}*/}
 
             {/* Stock Table */}
             {isLoading ? (
@@ -344,9 +357,9 @@ export default function Home() {
                     <thead className='table-heading'>
                         <tr>
                             <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>Stock Symbol</th>
-                            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>Share price (£)</th>
+                            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>Share price (&yen;)</th>
                             <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>Shares held</th>
-                            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>Total value (£)</th>
+                            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>Total value (&yen;)</th>
                             <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>Actions</th>
                         </tr>
                     </thead>
