@@ -258,14 +258,14 @@ export default function Home() {
         <div style={{ textAlign: 'center', marginTop: '15px' }}>
             {/* Title and Baseline Value */}
             <h1 className='heading'>
-               Japan
+               Nikkei
                 <span>
                     <Image className='uk-pic'
                         src="/Japan.jpg" 
                         alt="Portfolio Image" 
                         width={50}  
                         height={50} 
-                        style={{ marginLeft: '5px' }}  
+                        style={{marginLeft: '5px', marginRight:'5px' }}  
                     />
                 </span> 
                 Stock Portfolio  
@@ -299,9 +299,9 @@ export default function Home() {
             <Link className='currency-link' href="/currency">Currency Converter</Link>
 
             <div style={{marginTop:'10px'}}>
-            <Link className='usstock-link' style={{margin:'top', marginRight:'10px'}} href="/">UK</Link>
-            <Link className='usstock-link' style={{margin:'top', marginRight:'10px'}} href="/usstock">US</Link>
-            <Link className='usstock-link' style={{margin:'top', marginRight:'10px'}} href="/">EU</Link>
+            <Link className='usstock-link' style={{margin:'top', marginRight:'25px'}} href="/">FTSE</Link>
+            <Link className='usstock-link' style={{margin:'top', marginRight:'25px'}} href="/usstock">DJI</Link>
+            <Link className='usstock-link' style={{margin:'top', marginRight:'25px'}} href="/eustock">DAX</Link>
             </div>
             
             {/* Add or Update Stock Form */}

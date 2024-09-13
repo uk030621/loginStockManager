@@ -8,7 +8,7 @@ export default function Home() {
     const [stocks, setStocks] = useState([]);
     const [previousPrices, setPreviousPrices] = useState({}); // Store previous prices
     const [totalPortfolioValue, setTotalPortfolioValue] = useState(0);
-    const [DjiValue, setDjiValue] = useState(null); // Initialize DjiValue using useState
+    const [GdaxiValue, setGdaxiValue] = useState(null); // Initialize GdaxiValue using useState
     const [newStock, setNewStock] = useState({ symbol: '', sharesHeld: '' });
     const [isEditing, setIsEditing] = useState(false);
     const [editingSymbol, setEditingSymbol] = useState('');
@@ -36,14 +36,14 @@ export default function Home() {
     useEffect(() => {
         fetchData();
         fetchBaselineValue();
-        fetchDjiValue(); // Fetch FTSE value
+        fetchGdaxiValue(); // Fetch FTSE value
     }, []);
 
 
     useEffect(() => {
         // Fetch the initial stock data on component mount
         fetchData();
-        fetchDjiValue(); 
+        fetchGdaxiValue(); 
     
         // Set an interval to fetch data every 60 seconds
         const intervalId = setInterval(fetchData, 60000); 
@@ -53,36 +53,36 @@ export default function Home() {
 
     
     useEffect(() => {
-        fetchDjiValue();  // Initial fetch
+        fetchGdaxiValue();  // Initial fetch
     
-        const intervalId = setInterval(fetchDjiValue, 60000);  // Set interval to fetch FTSE every 60 seconds
+        const intervalId = setInterval(fetchGdaxiValue, 60000);  // Set interval to fetch FTSE every 60 seconds
         return () => clearInterval(intervalId);  // Cleanup the interval on component unmount
     }, []);
   
     
     useEffect(() => {
-        console.log("DjiValue state:", DjiValue);  // Log DjiValue state on every change
-    }, [DjiValue]);
+        console.log("GdaxiValue state:", GdaxiValue);  // Log GdaxiValue state on every change
+    }, [GdaxiValue]);
 
 
     // Function to fetch FTSE index value
-    const fetchDjiValue = async () => {
+    const fetchGdaxiValue = async () => {
         try {
-            console.log("Fetching DJ index value...");  // For debugging
-            const response = await fetch('/api/usstock?symbol=^DJI');  // Try changing to 'DJI'
+            console.log("Fetching Dax index value...");  // For debugging
+            const response = await fetch('/api/eustock?symbol=^GDAXI');  // Try changing to 'DJI'
             if (!response.ok) {
-                throw new Error('Failed to fetch DJ Index value');
+                throw new Error('Failed to fetch Dax Index value');
             }
             const data = await response.json();
-            console.log("DJ Index data:", data);  // For debugging
+            console.log("Dax Index data:", data);  // For debugging
     
             if (data.pricePerShare) {
-                setDjiValue(data.pricePerShare);
+                setGdaxiValue(data.pricePerShare);
             } else {
                 console.error('Price per share not found in data', data);
             }
         } catch (error) {
-            console.error('Error fetching DJ index value:', error);
+            console.error('Error fetching Dax index value:', error);
         }
     };
     
@@ -91,7 +91,7 @@ export default function Home() {
     // Fetch baseline value
     const fetchBaselineValue = async () => {
         try {
-            const response = await fetch('/api/usbaseline');
+            const response = await fetch('/api/eubaseline');
             const data = await response.json();
             setBaselinePortfolioValue(data.baselinePortfolioValue);
         } catch (error) {
@@ -101,7 +101,7 @@ export default function Home() {
 
     const updateBaselineValue = async () => {
         try {
-            const response = await fetch('/api/usbaseline', {
+            const response = await fetch('/api/eubaseline', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ baselinePortfolioValue: parseFloat(newBaselineValue) })
@@ -131,12 +131,12 @@ export default function Home() {
     const fetchData = async () => {
         setIsLoading(true);
         try {
-            const response = await fetch('/api/usstock');
+            const response = await fetch('/api/eustock');
             const data = await response.json();
 
             const updatedStocks = await Promise.all(
                 data.map(async (stock) => {
-                    const priceResponse = await fetch(`/api/usstock?symbol=${stock.symbol}`);
+                    const priceResponse = await fetch(`/api/eustock?symbol=${stock.symbol}`);
                     const priceData = await priceResponse.json();
 
                     const pricePerShare = parseFloat(priceData.pricePerShare);
@@ -183,7 +183,7 @@ export default function Home() {
     const addOrUpdateStock = async () => {
         try {
             const method = isEditing ? 'PUT' : 'POST';
-            const endpoint = isEditing ? `/api/usstock?symbol=${editingSymbol}` : '/api/usstock';
+            const endpoint = isEditing ? `/api/eustock?symbol=${editingSymbol}` : '/api/eustock';
 
             const response = await fetch(endpoint, {
                 method: method,
@@ -206,7 +206,7 @@ export default function Home() {
 
     const deleteStock = async (symbol) => {
         try {
-            const response = await fetch('/api/usstock', {
+            const response = await fetch('/api/eustock', {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ symbol })
@@ -250,7 +250,7 @@ export default function Home() {
 
     const refreshAllData = () => {
         fetchData();      // Fetch stock data
-        fetchDjiValue(); // Fetch FTSE index value
+        fetchGdaxiValue(); // Fetch FTSE index value
     };
 
     
@@ -258,10 +258,10 @@ export default function Home() {
         <div style={{ textAlign: 'center', marginTop: '15px' }}>
             {/* Title and Baseline Value */}
             <h1 className='heading'>
-                DJI
+                DAX
                 <span>
                     <Image className='uk-pic'
-                        src="/USFLAG.jpg" 
+                        src="/germany.jpg" 
                         alt="Portfolio Image" 
                         width={50}  
                         height={50} 
@@ -270,8 +270,8 @@ export default function Home() {
                 </span> 
                 Stock Portfolio  
             </h1>
-            <h2 className="sub-heading" style={{ marginTop: '10px' }}>Indicative Value: <span className='total-value'>${totalPortfolioValue.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span></h2>
-            <h4 className='baseline-value'>Baseline: ${baselinePortfolioValue.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</h4>
+            <h2 className="sub-heading" style={{ marginTop: '10px' }}>Indicative Value: <span className='total-value'>&euro;{totalPortfolioValue.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span></h2>
+            <h4 className='baseline-value'>Baseline: &euro;{baselinePortfolioValue.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</h4>
             
             <input
                 className="inputs"
@@ -285,7 +285,7 @@ export default function Home() {
             <p style={{fontSize:'0.8rem', marginBottom:'2px', color:'grey'}}>Change from baseline:</p>
                 <h4 className="statistics">
                     <span className={getColorClass(deviation.absoluteDeviation)} style={{ marginRight: '20px' }}>
-                        ${deviation.absoluteDeviation.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                        &euro;{deviation.absoluteDeviation.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                     </span>
 
                     <span className={getColorClass(deviation.percentageChange)}>
@@ -301,7 +301,7 @@ export default function Home() {
             <div style={{marginTop:'10px'}}>
             <Link className='usstock-link' style={{margin:'top', marginRight:'25px'}} href="/">FTSE</Link>
             <Link className='usstock-link' style={{margin:'top', marginRight:'25px'}} href="/asiastock">Nikkei</Link>
-            <Link className='usstock-link' style={{margin:'top', marginRight:'25px'}} href="/eustock">DAX</Link>
+            <Link className='usstock-link' style={{margin:'top', marginRight:'25px'}} href="/usstock">DJI</Link>
             </div>
 
             {/* Add or Update Stock Form */}
@@ -335,7 +335,7 @@ export default function Home() {
 
             <div>
                 <h2 className="ftse-index" style={{ marginBottom: '20px', color:'grey', fontSize:'0.9rem' }}>
-                    DJ Index: {typeof DjiValue === 'number' ? DjiValue.toLocaleString('en-GB') : 'Loading...'}
+                    DAX Index: {typeof GdaxiValue === 'number' ? GdaxiValue.toLocaleString('en-GB') : 'Loading...'}
                 </h2>
             </div>
 
@@ -343,9 +343,9 @@ export default function Home() {
             
 
             {/* FTSE Index Display */}
-        {/*{DjiValue !== null && (
+        {/*{GdaxiValue !== null && (
             <h2 className="ftse-index" style={{ marginBottom: '20px', color:'grey', fontSize:'0.9rem' }}>
-                FTSE 100 Index: <span>{DjiValue.toLocaleString('en-GB')}</span>
+                FTSE 100 Index: <span>{GdaxiValue.toLocaleString('en-GB')}</span>
             </h2>
         )}*/}
 
@@ -357,9 +357,9 @@ export default function Home() {
                     <thead className='table-heading'>
                         <tr>
                             <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>Stock Symbol</th>
-                            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>Share price ($)</th>
+                            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>Share price (&euro;)</th>
                             <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>Shares held</th>
-                            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>Total value ($)</th>
+                            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>Total value (&euro;)</th>
                             <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>Actions</th>
                         </tr>
                     </thead>

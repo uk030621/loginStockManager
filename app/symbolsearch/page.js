@@ -112,12 +112,12 @@ export default function StockSearchPage() {
                 className='uk-pic'
                 src="/UKFlag.jpg"
                 alt="Portfolio Image"
-                width={50} // Adjust the width
-                height={50} // Adjust the height
+                width={40} // Adjust the width
+                height={40} // Adjust the height
                 style={{ marginLeft: '5px' }} // Add margin for spacing
               />
             </span>
-            UK
+            
           </Link>
           <Link className='stock-symbol-search' href="/usstock">
             <span>
@@ -125,12 +125,12 @@ export default function StockSearchPage() {
                 className='uk-pic'
                 src="/USFLAG.jpg"
                 alt="Portfolio Image"
-                width={50} // Adjust the width
-                height={50} // Adjust the height
+                width={40} // Adjust the width
+                height={40} // Adjust the height
                 style={{ marginLeft: '5px' }} // Add margin for spacing
               />
             </span>
-            US
+           
           </Link>
           <Link className='stock-symbol-search' href="/asiastock">
             <span>
@@ -138,14 +138,25 @@ export default function StockSearchPage() {
                 className='uk-pic'
                 src="/Japan.jpg"
                 alt="Portfolio Image"
-                width={50} // Adjust the width
-                height={50} // Adjust the height
+                width={40} // Adjust the width
+                height={40} // Adjust the height
                 style={{ marginLeft: '5px' }} // Add margin for spacing
               />
             </span>
-            Japan
+            
           </Link>
-
+          <Link className='stock-symbol-search' href="/eustock">
+            <span>
+              <Image className='uk-pic'
+                src="/germany.jpg" 
+                alt="Portfolio Image" 
+                width={40}  
+                height={40} 
+                style={{ marginLeft: '5px' }}  
+              />
+            </span>
+            
+          </Link>
 
 
 
