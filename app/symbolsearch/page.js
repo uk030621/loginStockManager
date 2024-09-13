@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import styles from './page.module.css';
 
 export default function StockSearchPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -11,7 +12,15 @@ export default function StockSearchPage() {
   const [copySuccess, setCopySuccess] = useState('');
   const inputRef = useRef(null);
   
+  // Add the body style logic here
+  useEffect(() => {
+    document.body.classList.add(styles.bodyCustomStyle);
 
+    return () => {
+    // Clean up the class when the component is unmounted
+    document.body.classList.remove(styles.bodyCustomStyle);
+    };
+  }, []);  // <-- Empty dependency array so it runs only on mount/unmount
 
   // Fetch stock suggestions from API when the search term changes
   useEffect(() => {

@@ -1,15 +1,27 @@
 // app/page.js
 'use client'; // This is a client component since we are using form and state
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
+import styles from './page.module.css';
 
 export default function CurrencyConverter() {
   const [amount, setAmount] = useState('');
   const [fromCurrency, setFromCurrency] = useState('GBP');
   const [toCurrency, setToCurrency] = useState('EUR');
   const [result, setResult] = useState(null);
+
+  // Add the body style logic here
+  useEffect(() => {
+    document.body.classList.add(styles.bodyCustomStyle);
+
+    return () => {
+    // Clean up the class when the component is unmounted
+    document.body.classList.remove(styles.bodyCustomStyle);
+    };
+  }, []);  // <-- Empty dependency array so it runs only on mount/unmount
+
 
   const handleConvert = async (e) => {
     e.preventDefault();

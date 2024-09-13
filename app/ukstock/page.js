@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import styles from './page.module.css';
 
 export default function Home() {
     const [stocks, setStocks] = useState([]);
@@ -19,6 +20,18 @@ export default function Home() {
         absoluteDeviation: 0,
         percentageChange: 0,
     });
+
+
+    // Add the body style logic here
+    useEffect(() => {
+        document.body.classList.add(styles.bodyCustomStyle);
+
+        return () => {
+        // Clean up the class when the component is unmounted
+        document.body.classList.remove(styles.bodyCustomStyle);
+        };
+    }, []);  // <-- Empty dependency array so it runs only on mount/unmount
+
 
     useEffect(() => {
         fetchData();
@@ -49,23 +62,23 @@ export default function Home() {
     
 
     // Function to fetch FTSE index value
-const fetchFtseValue = async () => {
-    try {
-        console.log("Fetching FTSE value...");  // For debugging
-        const response = await fetch('/api/stock?symbol=FTSE^');
-        if (!response.ok) {
-            throw new Error('Failed to fetch FTSE value');
-        }
-        const data = await response.json();
-        console.log("FTSE data:", data);  // For debugging
+    const fetchFtseValue = async () => {
+        try {
+            console.log("Fetching FTSE value...");  // For debugging
+            const response = await fetch('/api/stock?symbol=FTSE^');
+            if (!response.ok) {
+                throw new Error('Failed to fetch FTSE value');
+            }
+            const data = await response.json();
+            console.log("FTSE data:", data);  // For debugging
 
-        if (data.pricePerShare) {
-            setFtseValue(data.pricePerShare);
+            if (data.pricePerShare) {
+                setFtseValue(data.pricePerShare);
+            }
+        } catch (error) {
+            console.error('Error fetching FTSE index:', error);
         }
-    } catch (error) {
-        console.error('Error fetching FTSE index:', error);
-    }
-};
+    };
 
 
     // Fetch baseline value
@@ -232,7 +245,8 @@ const fetchFtseValue = async () => {
         fetchData();      // Fetch stock data
         fetchFtseValue(); // Fetch FTSE index value
     };
-    
+
+
 
     return (
         <div style={{ textAlign: 'center', marginTop: '15px' }}>

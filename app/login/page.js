@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
+
 export default function LoginPage() {
   const [form, setForm] = useState({ email: '', password: '' });
   const router = useRouter();
@@ -27,6 +28,7 @@ export default function LoginPage() {
   };
 
   return (
+    
     <div style={{textAlign:'center', padding: '20px', maxWidth: '100%', boxSizing: 'border-box', border:'none'}}>
       <div
         style={{
@@ -111,5 +113,6 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+    
   );
 }
