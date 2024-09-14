@@ -5,6 +5,20 @@ body{
   
 }
 
+.return-link-backtointro{
+  text-decoration: none;
+  font-size: medium;
+  margin-left: 10px;
+  color:grey
+}
+
+.return-link-backtointro:hover{
+  color:black;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+
 .login-button{
   background-color:green;
   color: white;
