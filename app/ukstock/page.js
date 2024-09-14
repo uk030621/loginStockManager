@@ -259,7 +259,8 @@ export default function Home() {
                         src="/UKFlag.jpg" 
                         alt="Portfolio Image" 
                         width={50}  
-                        height={50} 
+                        height={50}
+                        priority={true}
                         style={{ marginLeft: '5px', marginRight:'5px' }}  
                     />
                 </span> 

@@ -53,7 +53,8 @@ export default function SignupPage() {
                         src="/bull_bear.jpg" 
                         alt="Portfolio Image" 
                         width={150}  
-                        height={150} 
+                        height={150}
+                        priority={true}
                         style={{marginLeft: '5px', borderRadius:'50px' }}  
                     />
         <h1 style={{ textAlign: 'center', marginBottom: '15px', color:'#c8f3c8' }}>Stock Portfolio</h1>             
