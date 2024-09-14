@@ -114,6 +114,7 @@ export default function StockSearchPage() {
                 alt="Portfolio Image"
                 width={40} // Adjust the width
                 height={40} // Adjust the height
+                priority={true}
                 style={{ marginLeft: '5px' }} // Add margin for spacing
               />
             </span>
@@ -127,6 +128,7 @@ export default function StockSearchPage() {
                 alt="Portfolio Image"
                 width={40} // Adjust the width
                 height={40} // Adjust the height
+                priority={true}
                 style={{ marginLeft: '5px' }} // Add margin for spacing
               />
             </span>
@@ -140,6 +142,7 @@ export default function StockSearchPage() {
                 alt="Portfolio Image"
                 width={40} // Adjust the width
                 height={40} // Adjust the height
+                priority={true}
                 style={{ marginLeft: '5px' }} // Add margin for spacing
               />
             </span>
@@ -152,6 +155,7 @@ export default function StockSearchPage() {
                 alt="Portfolio Image" 
                 width={40}  
                 height={40} 
+                priority={true}
                 style={{ marginLeft: '5px' }}  
               />
             </span>

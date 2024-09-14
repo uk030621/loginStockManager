@@ -48,6 +48,7 @@ export default function CurrencyConverter() {
             alt="Money Exchange Image" 
             width={100}  // Adjust the width
             height={100} // Adjust the height
+            priority={true}
             style={{ marginLeft: '5px' }}  // Add margin for spacing
           />
         </span> Currency</h1>
