@@ -15,7 +15,7 @@ export default function HomePage() {
         const res = await fetch('/api/checkAuth'); // Adjust this route to your actual API
         if (res.ok) {
           setIsAuthenticated(true);
-          router.push('/ukstock'); // Redirect to /stock after successful authentication
+          router.push('/intro'); // Redirect to /stock after successful authentication
         } else {
           setIsAuthenticated(false);
           router.push('/login'); // Redirect to login if not authenticated

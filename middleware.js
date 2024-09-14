@@ -14,5 +14,5 @@ export function middleware(req) {
 
 // Apply the middleware to protected routes
 export const config = {
-  matcher: ['/ukstock/:path*', '/usstock/:path*'], // Add paths for protected pages
+  matcher: ['/ukstock/:path*', '/usstock/:path*', '/eustock/:path*','/asiastock/:path*' ], // Add paths for protected pages
 };
