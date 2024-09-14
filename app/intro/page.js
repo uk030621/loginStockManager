@@ -39,7 +39,7 @@ const Introduction = () => {
       <p className={styles.description}>
         This app allows you to manage and monitor your stock portfolio easily.
         You can add, edit, and delete stocks from your portfolio, track their
-        performance, and see real-time changes in value. Here's what the app
+        performance, and see real-time changes in value. Here&apos;s what the app
         offers:
       </p>
       <ul className={styles.list}>
@@ -50,6 +50,7 @@ const Introduction = () => {
         <li className={styles.listItem}>Access support tools like Symbol Lookup and Currency Converter for a seamless experience.</li>
       </ul>
       <div className={styles.checkboxContainer}>
+
         <label>
           <input 
             type="checkbox" 
