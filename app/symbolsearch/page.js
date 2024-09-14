@@ -106,7 +106,7 @@ export default function StockSearchPage() {
   
         <div style={{ marginTop: '20px', textAlign: 'center' }}>
           <p className='return-to-stock'>Return to Stock: </p>
-          <Link className='stock-symbol-search' href="/">
+          <Link className='stock-symbol-search' href="/ukstock">
             <span>
               <Image
                 className='uk-pic'
