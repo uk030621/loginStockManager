@@ -9,13 +9,15 @@ const Introduction = () => {
   const [hideIntroductionChecked, setHideIntroductionChecked] = useState(false);
   const router = useRouter();
 
-  // Check local storage to determine if the user has opted out
+  // Check localStorage to determine if the user has opted out
   useEffect(() => {
     const hideIntro = localStorage.getItem('hideIntroduction');
     if (hideIntro === 'true') {
-      setShowIntroduction(false);
+      router.push('/ukstock'); // Redirect immediately if the introduction is set to be hidden
+    } else {
+      setShowIntroduction(true); // Show the introduction if not opted out
     }
-  }, []);
+  }, [router]);
 
   const handleCheckboxChange = (e) => {
     setHideIntroductionChecked(e.target.checked);
@@ -50,7 +52,6 @@ const Introduction = () => {
         <li className={styles.listItem}>Access support tools like Symbol Lookup and Currency Converter for a seamless experience.</li>
       </ul>
       <div className={styles.checkboxContainer}>
-
         <label>
           <input 
             type="checkbox" 
