@@ -250,7 +250,6 @@ export default function Home() {
 
     return (
         <div style={{ textAlign: 'center', marginTop: '15px' }}>
-            
             {/* Title and Baseline Value */}
             <h1 className='heading'>
                 FTSE
@@ -295,6 +294,7 @@ export default function Home() {
             <Link className='currency-link' href="/currency">Currency Converter</Link>
             
             <div style={{marginTop:'10px'}}>
+            <Link className='usstock-link' style={{margin:'top', marginRight:'25px'}} href='/intro'>Intro</Link>   
             <Link className='usstock-link' style={{margin:'top', marginRight:'25px'}} href="/usstock">DJI</Link>
             <Link className='usstock-link' style={{margin:'top', marginRight:'25px'}} href="/asiastock">Nikkei</Link>
             <Link className='usstock-link' style={{margin:'top', marginRight:'25px'}} href="/eustock">DAX</Link>

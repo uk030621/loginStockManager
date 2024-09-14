@@ -300,6 +300,7 @@ export default function Home() {
             <Link className='currency-link' href="/currency">Currency Converter</Link>
 
             <div style={{marginTop:'10px'}}>
+            <Link className='usstock-link' style={{margin:'top', marginRight:'25px'}} href='/intro'>Intro</Link>    
             <Link className='usstock-link' style={{margin:'top', marginRight:'25px'}} href="/ukstock">FTSE</Link>
             <Link className='usstock-link' style={{margin:'top', marginRight:'25px'}} href="/usstock">DJI</Link>
             <Link className='usstock-link' style={{margin:'top', marginRight:'25px'}} href="/eustock">DAX</Link>
