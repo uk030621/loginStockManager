@@ -1,6 +1,6 @@
 "use client";
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import styles from './page.module.css';
 
@@ -33,42 +33,17 @@ export default function Home() {
 
 
 
-    useEffect(() => {
-        fetchData();
-        fetchBaselineValue();
-        fetchDjiValue(); // Fetch FTSE value
-    }, []);
-
-
-    useEffect(() => {
-        // Fetch the initial stock data on component mount
-        fetchData();
-        fetchDjiValue(); 
     
-        // Set an interval to fetch data every 60 seconds
-        const intervalId = setInterval(fetchData, 60000); 
-    
-        return () => clearInterval(intervalId); // Clear interval on component unmount
-    }, []);
-
-    
-    useEffect(() => {
-        fetchDjiValue();  // Initial fetch
-    
-        const intervalId = setInterval(fetchDjiValue, 60000);  // Set interval to fetch FTSE every 60 seconds
-        return () => clearInterval(intervalId);  // Cleanup the interval on component unmount
-    }, []);
-  
     
     useEffect(() => {
         console.log("DjiValue state:", DjiValue);  // Log DjiValue state on every change
     }, [DjiValue]);
 
 
-    // Function to fetch FTSE index value
+    // Function to fetch DJI index value
     const fetchDjiValue = async () => {
         try {
-            console.log("Fetching DJ index value...");  // For debugging
+            console.log("Fetching DJI index value...");  // For debugging
             const response = await fetch('/api/usstock?symbol=^DJI');  // Try changing to 'DJI'
             if (!response.ok) {
                 throw new Error('Failed to fetch DJ Index value');
@@ -128,7 +103,7 @@ export default function Home() {
         });
     }, [totalPortfolioValue, baselinePortfolioValue]);
 
-    const fetchData = async () => {
+    const fetchData = useCallback(async () => {
         setIsLoading(true);
         try {
             const response = await fetch('/api/usstock');
@@ -172,7 +147,7 @@ export default function Home() {
         } finally {
             setIsLoading(false);
         }
-    };
+    }, []);
     
 
     const calculateTotalPortfolioValue = (stocks) => {
@@ -252,6 +227,33 @@ export default function Home() {
         fetchData();      // Fetch stock data
         fetchDjiValue(); // Fetch FTSE index value
     };
+
+    useEffect(() => {
+        fetchData();
+        fetchBaselineValue();
+        fetchDjiValue(); // Fetch FTSE value
+    }, [fetchData]);
+
+
+    useEffect(() => {
+        // Fetch the initial stock data on component mount
+        fetchData();
+        fetchDjiValue(); 
+    
+        // Set an interval to fetch data every 60 seconds
+        const intervalId = setInterval(fetchData, 60000); 
+    
+        return () => clearInterval(intervalId); // Clear interval on component unmount
+    }, [fetchData]);
+
+    
+    useEffect(() => {
+        fetchDjiValue();  // Initial fetch
+    
+        const intervalId = setInterval(fetchDjiValue, 60000);  // Set interval to fetch FTSE every 60 seconds
+        return () => clearInterval(intervalId);  // Cleanup the interval on component unmount
+    }, []);
+  
 
     
     return (

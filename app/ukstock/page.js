@@ -1,7 +1,7 @@
 //app/ukstock/page.js
 "use client";
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import styles from './page.module.css';
 
@@ -33,32 +33,7 @@ export default function Home() {
     }, []);  // <-- Empty dependency array so it runs only on mount/unmount
 
 
-    useEffect(() => {
-        fetchData();
-        fetchBaselineValue();
-        fetchFtseValue(); // Fetch FTSE value
-    }, []);
-
-
-    useEffect(() => {
-        // Fetch the initial stock data on component mount
-        fetchData();
-        fetchFtseValue(); 
     
-        // Set an interval to fetch data every 60 seconds
-        const intervalId = setInterval(fetchData, 60000); 
-    
-        return () => clearInterval(intervalId); // Clear interval on component unmount
-    }, []);
-
-    
-    useEffect(() => {
-        fetchFtseValue();  // Initial fetch
-    
-        const intervalId = setInterval(fetchFtseValue, 60000);  // Set interval to fetch FTSE every 60 seconds
-        return () => clearInterval(intervalId);  // Cleanup the interval on component unmount
-    }, []);
-  
     
 
     // Function to fetch FTSE index value
@@ -121,7 +96,7 @@ export default function Home() {
         });
     }, [totalPortfolioValue, baselinePortfolioValue]);
 
-    const fetchData = async () => {
+    const fetchData = useCallback (async () => {
         setIsLoading(true);
         try {
             const response = await fetch('/api/ukstock');
@@ -165,7 +140,7 @@ export default function Home() {
         } finally {
             setIsLoading(false);
         }
-    };
+    }, []);
     
 
     const calculateTotalPortfolioValue = (stocks) => {
@@ -245,6 +220,33 @@ export default function Home() {
         fetchData();      // Fetch stock data
         fetchFtseValue(); // Fetch FTSE index value
     };
+
+    useEffect(() => {
+        fetchData();
+        fetchBaselineValue();
+        fetchFtseValue(); // Fetch FTSE value
+    }, [fetchData]);
+
+
+    useEffect(() => {
+        // Fetch the initial stock data on component mount
+        fetchData();
+        fetchFtseValue(); 
+    
+        // Set an interval to fetch data every 60 seconds
+        const intervalId = setInterval(fetchData, 60000); 
+    
+        return () => clearInterval(intervalId); // Clear interval on component unmount
+    }, [fetchData]);
+
+    
+    useEffect(() => {
+        fetchFtseValue();  // Initial fetch
+    
+        const intervalId = setInterval(fetchFtseValue, 60000);  // Set interval to fetch FTSE every 60 seconds
+        return () => clearInterval(intervalId);  // Cleanup the interval on component unmount
+    }, []);
+  
 
 
 

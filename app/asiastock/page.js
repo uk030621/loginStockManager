@@ -1,6 +1,6 @@
 "use client";
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import styles from './page.module.css';
 
@@ -33,32 +33,7 @@ export default function Home() {
 
 
 
-    useEffect(() => {
-        fetchData();
-        fetchBaselineValue();
-        fetchNikkei(); // Fetch FTSE value
-    }, []);
-
-
-    useEffect(() => {
-        // Fetch the initial stock data on component mount
-        fetchData();
-        fetchNikkei(); 
     
-        // Set an interval to fetch data every 60 seconds
-        const intervalId = setInterval(fetchData, 60000); 
-    
-        return () => clearInterval(intervalId); // Clear interval on component unmount
-    }, []);
-
-    
-    useEffect(() => {
-        fetchNikkei();  // Initial fetch
-    
-        const intervalId = setInterval(fetchNikkei, 60000);  // Set interval to fetch FTSE every 60 seconds
-        return () => clearInterval(intervalId);  // Cleanup the interval on component unmount
-    }, []);
-  
     
     useEffect(() => {
         console.log("Nikkei state:", Nikkei);  // Log Nikkei state on every change
@@ -128,7 +103,7 @@ export default function Home() {
         });
     }, [totalPortfolioValue, baselinePortfolioValue]);
 
-    const fetchData = async () => {
+    const fetchData = useCallback(async () => {
         setIsLoading(true);
         try {
             const response = await fetch('/api/asiastock');
@@ -172,7 +147,7 @@ export default function Home() {
         } finally {
             setIsLoading(false);
         }
-    };
+    }, []);
     
 
     const calculateTotalPortfolioValue = (stocks) => {
@@ -252,6 +227,33 @@ export default function Home() {
         fetchData();      // Fetch stock data
         fetchNikkei(); // Fetch FTSE index value
     };
+
+    useEffect(() => {
+        fetchData();
+        fetchBaselineValue();
+        fetchNikkei(); // Fetch FTSE value
+    }, [fetchData]);
+
+
+    useEffect(() => {
+        // Fetch the initial stock data on component mount
+        fetchData();
+        fetchNikkei(); 
+    
+        // Set an interval to fetch data every 60 seconds
+        const intervalId = setInterval(fetchData, 60000); 
+    
+        return () => clearInterval(intervalId); // Clear interval on component unmount
+    }, [fetchData]);
+
+    
+    useEffect(() => {
+        fetchNikkei();  // Initial fetch
+    
+        const intervalId = setInterval(fetchNikkei, 60000);  // Set interval to fetch FTSE every 60 seconds
+        return () => clearInterval(intervalId);  // Cleanup the interval on component unmount
+    }, []);
+  
 
     
     return (
