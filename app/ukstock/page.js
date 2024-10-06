@@ -298,6 +298,7 @@ export default function Home() {
             <Link className='usstock-link' style={{margin:'top', marginRight:'25px'}} href="/usstock">DJI</Link>
             <Link className='usstock-link' style={{margin:'top', marginRight:'25px'}} href="/asiastock">Nikkei</Link>
             <Link className='usstock-link' style={{margin:'top', marginRight:'25px'}} href="/eustock">DAX</Link>
+            <Link className='usstock-link' style={{margin:'top', marginRight:'25px'}} href="https://lwj-crypto-tracker-app.vercel.app/" replace>Crypto</Link>
             </div>
 
             {/* Add or Update Stock Form */}
