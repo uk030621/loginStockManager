@@ -33,9 +33,9 @@ export default function RootLayout({ children }) {
         <div className="content">
           {children}
         </div>
-        <footer className="footer">
+        {/*<footer className="footer">
           <p>&copy; {new Date().getFullYear()} LWJ StockManager. All rights reserved.</p>
-        </footer>
+        </footer>*/}
       </body>
     </html>
   );
