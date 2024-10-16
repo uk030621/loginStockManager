@@ -29,7 +29,7 @@ export default function LoginPage() {
 
   return (
     
-    <div style={{height:'100vh', backgroundColor:'black', textAlign:'center', padding: '20px', maxWidth: '100%', boxSizing: 'border-box', border:'none'}}>
+    <div style={{height:'100vh', backgroundColor:'black', margin:'none', textAlign:'center', padding: '0px', maxWidth: '100%', boxSizing: 'border-box', border:'none'}}>
       <div
         style={{
           backgroundColor: 'black',
